@@ -1,8 +1,8 @@
 class Autocomplete {
   constructor(elementReference) {
     this.elementReference = elementReference;
-    this.textareaElement  = this.elementReference.querySelector('textarea');
-    this.ulElement        = this.elementReference.querySelector('ul');
+    this.textareaElement  = this.elementReference.querySelector('textarea.autocomplete__control');
+    this.ulElement        = this.elementReference.querySelector('ul.autocomplete__list');
     this.highlighter      = new Mark(this.ulElement);
     this.addresses        = [];
     this.timeoutToken     = null;
@@ -53,6 +53,7 @@ class Autocomplete {
     results.forEach((address) => {
       const liElement = document.createElement('li');
 
+      liElement.className = 'autocomplete__item'
       liElement.textContent = address;
       this.ulElement.appendChild(liElement);
     });

@@ -6,16 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample Web</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Prompt&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" href="assets/stylesheets/application.css">
   </head>
   <body>
-    <section>
-      <h1>Autocomplete Demo</h1>
-      <div id="autocomplete">
-        <form autocomplete="off">
-          <textarea rows="5" disabled></textarea>
+    <section class="section">
+      <h1 class="section__title" lang="en">
+        Autocomplete Demo
+      </h1>
+      <div class="autocomplete">
+        <form class="autocomplete__form" autocomplete="off">
+          <textarea class="autocomplete__control" rows="3" placeholder="กรุณาพิมพ์ที่อยู่..." disabled></textarea>
         </form>
-        <ul></ul>
+        <ul class="autocomplete__list"></ul>
       </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js"></script>
