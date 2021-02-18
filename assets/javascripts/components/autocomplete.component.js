@@ -3,6 +3,7 @@ class Autocomplete {
     this.elementReference = elementReference;
     this.textareaElement  = this.elementReference.querySelector('textarea');
     this.ulElement        = this.elementReference.querySelector('ul');
+    this.highlighter      = new Mark(this.ulElement);
     this.addresses        = [];
     this.timeoutToken     = null;
 
@@ -28,6 +29,7 @@ class Autocomplete {
 
       this.clearAddressesQueryResults();
       this.renderAddressesQueryResults(results);
+      this.renderSearchPhraseHighlighter(value);
     }, 600);
   }
 
@@ -54,6 +56,23 @@ class Autocomplete {
       liElement.textContent = address;
       this.ulElement.appendChild(liElement);
     });
+  }
+
+  renderSearchPhraseHighlighter(searchPhrase) {
+    const searchTerms = this.getSearchTerms(searchPhrase);
+    this.highlighter.mark(searchTerms);
+  }
+
+  getSearchTerms(searchPhrase) {
+    const regexp   = /(\s+|ซ\.|ถ\.|ต\.|อ\.|จ\.|ซอย|ถนน|แขวง|เขต|ตำบล|อำเภอ|จังหวัด)/;
+    const removeFn = (element) => !element.match(regexp) && (element !== '');
+    const patterns = _.chain(searchPhrase)
+                      .split(regexp)
+                      .remove(removeFn)
+                      .takeRight(4)
+                      .value();
+
+    return _.compact([...patterns, ...Array(4 - patterns.length).fill('')]);
   }
 
   // Async functions
