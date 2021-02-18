@@ -1,0 +1,25 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: initial;
+}
+
+body {
+  color: white;
+  background-color: black;
+}
+
+textarea {
+  width: 400px;
+  border: 1px solid #374151;
+  color: white;
+  background-color: #4B5563;
+}
+
+textarea:focus {
+  outline: none;
+}
