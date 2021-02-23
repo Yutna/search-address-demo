@@ -7,6 +7,7 @@ class Autocomplete {
     this.addresses        = [];
     this.timeoutToken     = null;
 
+    this.handleClick      = this.handleClick.bind(this);
     this.handleInput      = this.handleInput.bind(this);
 
     this.setup();
@@ -14,6 +15,20 @@ class Autocomplete {
   }
 
   // Event handlers
+
+  handleClick(event) {
+    const address = event.target.textContent;
+    const inputValue = this.textareaElement.value;
+    const newInputValue = _.chain(inputValue)
+                           .split(' ')
+                           .dropRight()
+                           .concat(address)
+                           .join(' ')
+                           .value();
+
+    this.textareaElement.value = newInputValue;
+    this.clearAddressesQueryResults();
+  }
 
   handleInput(event) {
     const { value } = event.target;
@@ -48,7 +63,10 @@ class Autocomplete {
     this.ulElement.classList.remove('autocomplete__list--active');
 
     while (this.ulElement.firstChild) {
-      this.ulElement.firstChild.remove();
+      const liElement = this.ulElement.firstChild;
+
+      liElement.removeEventListener('click', this.handleClick);
+      liElement.remove();
     }
   }
 
@@ -58,6 +76,8 @@ class Autocomplete {
 
       liElement.className = 'autocomplete__item'
       liElement.textContent = address;
+      liElement.addEventListener('click', this.handleClick);
+
       this.ulElement.appendChild(liElement);
     });
   }
