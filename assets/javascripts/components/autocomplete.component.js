@@ -17,7 +17,13 @@ class Autocomplete {
   // Event handlers
 
   handleClick(event) {
-    const address = event.target.textContent;
+    const abbreviations = ['ต.', 'อ.', 'จ.', ''];
+    const address = _.chain(event.target.textContent)
+                     .split(' ')
+                     .map((addr, index) => `${abbreviations[index]}${addr}`)
+                     .join(' ')
+                     .value();
+
     const inputValue = this.textareaElement.value;
     const newInputValue = _.chain(inputValue)
                            .split(' ')
