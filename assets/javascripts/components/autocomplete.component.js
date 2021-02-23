@@ -28,8 +28,9 @@ class Autocomplete {
       const results = AddressesQuery.call(this.addresses, value);
 
       this.clearAddressesQueryResults();
-      this.renderAddressesQueryResults(results);
-      this.renderSearchPhraseHighlighter(value);
+      this.createAddressesQueryResults(results);
+      this.createSearchPhraseHighlighter(value);
+      this.renderSearchResults();
     }, 600);
   }
 
@@ -44,12 +45,14 @@ class Autocomplete {
   }
 
   clearAddressesQueryResults() {
+    this.ulElement.classList.remove('autocomplete__list--active');
+
     while (this.ulElement.firstChild) {
       this.ulElement.firstChild.remove();
     }
   }
 
-  renderAddressesQueryResults(results) {
+  createAddressesQueryResults(results) {
     results.forEach((address) => {
       const liElement = document.createElement('li');
 
@@ -59,9 +62,13 @@ class Autocomplete {
     });
   }
 
-  renderSearchPhraseHighlighter(searchPhrase) {
+  createSearchPhraseHighlighter(searchPhrase) {
     const searchTerms = this.getSearchTerms(searchPhrase);
     this.highlighter.mark(searchTerms);
+  }
+
+  renderSearchResults() {
+    this.ulElement.classList.add('autocomplete__list--active');
   }
 
   getSearchTerms(searchPhrase) {
