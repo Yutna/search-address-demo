@@ -24,7 +24,7 @@ class Autocomplete {
                      .join(' ')
                      .value();
 
-    const inputValue = this.textareaElement.value;
+    const inputValue = _.trim(this.textareaElement.value);
     const newInputValue = _.chain(inputValue)
                            .split(' ')
                            .dropRight()
